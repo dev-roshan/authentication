@@ -3,12 +3,12 @@
 namespace App\Notifications;
 
 use App\Services\UrlGenerator;
-use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Config;
+use App\Notifications\Message\MailMessage;
+use Illuminate\Notifications\Notification;
 
 class VerifyEmail extends Notification
 {
