@@ -29,7 +29,7 @@ class AuthController extends Controller
         event(new Registered($user));
       
         /**Take note of this: Your user authentication access token is generated here **/
-        $data['token'] =  $user->createToken('MyApp')->accessToken;
+        $data['token'] =  $user->createToken(env('APP_NAME'))->accessToken;
         $data['name'] =  $user->name;
 
         return response(['data' => $data, 'message' => 'Account created successfully!', 'status' => true]);
@@ -47,14 +47,15 @@ class AuthController extends Controller
             return response(['message' => 'Validation errors', 'errors' =>  $validator->errors(), 'status' => false], 422);
         }
 
-        if (!auth('web')->attempt($request->all())) {
-            return response(['message' => 'Invalid Credentials']);
+        if (auth('web')->attempt($request->all())) {
+            $user = User::where('email',$request->email)->first();
+            $data['token'] =  $user->createToken(env('APP_NAME'))->accessToken;
+            $data['name'] =  $user->name;
+            return response(['data' => $data, 'message' => 'Logged in successfully!', 'status' => true]);
         }
-        $user = User::find(auth()->user()->id);
-        $data['token'] =  $user->createToken('MyApp')->accessToken;
-        $data['name'] =  $user->name;
-
-        return response(['data' => $data, 'message' => 'Logged in successfully!', 'status' => true]);
+        else{
+            return response(['message' => 'Invalid Credentials', 'status' => false], 422);
+        }
     }
      
 }

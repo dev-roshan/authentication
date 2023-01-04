@@ -4,3 +4,6 @@ Homestead.json
 Homestead.yaml
 .env
 .phpunit.result.cache
+/data
+/logs
+/storage

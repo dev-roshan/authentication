@@ -54,6 +54,20 @@ $app->singleton(
     App\Console\Kernel::class
 );
 
+$app->singleton(Illuminate\Session\SessionManager::class, function () use ($app) {
+    return $app->loadComponent('session', Illuminate\Session\SessionServiceProvider::class, 'session');
+});
+
+$app->singleton('session.store', function () use ($app) {
+    return $app->loadComponent('session', Illuminate\Session\SessionServiceProvider::class, 'session.store');
+});
+
+$app->singleton('cookie', function () use ($app) {
+    return $app->loadComponent('session', 'Illuminate\Cookie\CookieServiceProvider', 'cookie');
+});
+
+$app->bind('Illuminate\Contracts\Cookie\QueueingFactory', 'cookie');
+
 /*
 |--------------------------------------------------------------------------
 | Register Config Files
@@ -84,6 +98,10 @@ $app->configure('app');
 
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
+]);
+
+$app->middleware([
+    \Illuminate\Session\Middleware\StartSession::class,
 ]);
 
 /*
