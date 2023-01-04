@@ -38,12 +38,16 @@ class AuthController extends Controller
     
     public function login(Request $request)
     {
-        $loginData = $request->validate([
-            'email' => 'email|required',
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
             'password' => 'required'
         ]);
 
-        if (!auth()->attempt($loginData)) {
+        if($validator->fails()){
+            return response(['message' => 'Validation errors', 'errors' =>  $validator->errors(), 'status' => false], 422);
+        }
+
+        if (!auth('web')->attempt($request->all())) {
             return response(['message' => 'Invalid Credentials']);
         }
         $user = User::find(auth()->user()->id);

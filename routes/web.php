@@ -24,6 +24,7 @@ $router->get('/email/verify/{id}', ['uses' => 'Auth\VerificationController@verif
 $router->get('/email/resend', ['uses' => 'Auth\VerificationController@resend', 'as' => 'verification.resend']);
 
 $router->post('/register','AuthController@register');
+$router->post('/login','AuthController@login');
 
 $router->get('/key', function() {
     return \Illuminate\Support\Str::random(32);
