@@ -19,6 +19,7 @@
 - create `data` and `logs` folder in root directory.
 - run `docker-compose build`.
 - run `docker-compose up -d`.
+- run `docker exec AUTH-php82 php artisan migrate` to run migration. 
 
 ## authentication routes
 - `{app_url}/register` for user registration. Make sure to setup mail settings. (It will send the user verification mail)
