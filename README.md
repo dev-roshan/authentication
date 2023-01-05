@@ -1,5 +1,6 @@
 # LUMEN + PASSPORT + DOCKER WITH PHP 8.2
 - This repo uses lumen framework and passport. And it has ready to go authentication module.
+- [LUMEN]('https://lumen.laravel.com/docs/9.x') [PASSPORT]('https://laravel.com/docs/9.x/passport')
 
 # LOCAL INSTALLATION
 - clone the repo
