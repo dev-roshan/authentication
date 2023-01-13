@@ -16,8 +16,12 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'password' => 'required'
-        ]);
+            'password' => 'required|confirmed|min:6|regex:/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])/'
+        ],
+        [
+            'password.regex' => 'The password requires an uppercase, lowercase, number and special character'
+        ]
+        );
 
         if($validator->fails()){
             return response(['message' => 'Validation errors', 'errors' =>  $validator->errors(), 'status' => false], 422);
