@@ -21,6 +21,9 @@
 - run `docker-compose up -d`.
 - run `docker exec AUTH-php82 php artisan migrate` to run migration. 
 
+# NOTE
+- please populate env `FRONTEND_ENDPOINTS` with your frontend endpoints, for cors issue.
+
 ## authentication routes
 - `{app_url}/register` for user registration. Make sure to setup mail settings. (It will send the user verification mail)
 - `{app_url}/login` to retrieve the user auth token.

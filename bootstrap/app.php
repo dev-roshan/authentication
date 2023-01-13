@@ -102,6 +102,7 @@ $app->routeMiddleware([
 
 $app->middleware([
     \Illuminate\Session\Middleware\StartSession::class,
+    App\Http\Middleware\CorsMiddleware::class
 ]);
 
 /*
