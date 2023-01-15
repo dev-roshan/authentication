@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -30,7 +31,13 @@ class AuthController extends Controller
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
         $user = User::create($input);
-        event(new Registered($user));
+        // handling the mail sending
+        try{
+            event(new Registered($user));
+        }
+        catch(\Exception $e){
+            Log::error('Smtp connection failed because '.$e->getMessage());
+        }
       
         /**Take note of this: Your user authentication access token is generated here **/
         $data['token'] =  $user->createToken(env('APP_NAME'))->accessToken;
