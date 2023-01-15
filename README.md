@@ -25,6 +25,7 @@
 - run `docker exec AUTH-php82 chmod -R ugo+rw storage` for permissions.
 - run `docker exec AUTH-php82 php artisan migrate` to run migration. 
 - run `docker exec AUTH-php82 php artisan passport:install` to install passport. 
+- lumen does not have key:generate feature, so there is api localhost:8099/key to generate, visit that and paste the key to `APP_KEY` in env.
 
 # NOTE
 - please populate env `FRONTEND_ENDPOINTS` with your frontend endpoints, for cors issue.
