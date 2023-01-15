@@ -20,9 +20,11 @@
 - run `docker-compose build`.
 - run `docker-compose up -d`.
 - run `docker exec AUTH-php82 composer install` to run migration. 
+- run `docker exec AUTH-php82 mkdir storage/framework/sessions` create folder.
 - run `docker exec AUTH-php82 chmod -R 775 storage` for permissions.
 - run `docker exec AUTH-php82 chmod -R ugo+rw storage` for permissions.
 - run `docker exec AUTH-php82 php artisan migrate` to run migration. 
+- run `docker exec AUTH-php82 php artisan passport:install` to install passport. 
 
 # NOTE
 - please populate env `FRONTEND_ENDPOINTS` with your frontend endpoints, for cors issue.
