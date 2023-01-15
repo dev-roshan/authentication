@@ -19,6 +19,9 @@
 - create `data` and `logs` folder in root directory.
 - run `docker-compose build`.
 - run `docker-compose up -d`.
+- run `docker exec AUTH-php82 composer install` to run migration. 
+- run `docker exec AUTH-php82 chmod -R 775 storage` for permissions.
+- run `docker exec AUTH-php82 chmod -R ugo+rw storage` for permissions.
 - run `docker exec AUTH-php82 php artisan migrate` to run migration. 
 
 # NOTE
