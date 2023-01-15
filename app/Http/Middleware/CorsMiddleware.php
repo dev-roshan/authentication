@@ -15,18 +15,23 @@ public function handle($request, Closure $next)
 {
     $allowedOrigins = explode(',',env('FRONTEND_ENDPOINTS'));
     
+    if($request->isMethod('OPTIONS')){
+        $response = response('', 200);
+    }
+    else{
+        $response = $next($request);
+    }
+
     if($request->server('HTTP_ORIGIN')){
+        $response->header('Access-Control-Allow-Methods', 'HEAD, GET, POST, PUT, PATCH');
+        $response->header('Access-Control-Allow-Headers', $request->header('Access-Control-Request-Headers'));
         if (in_array($request->server('HTTP_ORIGIN'), $allowedOrigins)) {
-            return $next($request)
-                ->header('Access-Control-Allow-Origin', $request->server('HTTP_ORIGIN'))
-                ->header('Access-Control-Allow-Origin', '*')
-                ->header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT, DELETE')
-                ->header('Access-Control-Allow-Headers', '*');
+            $response->header('Access-Control-Allow-Origin', '*');
         }
     }
 
 
-    return $next($request);
+    return $response;
 }
 
 }
