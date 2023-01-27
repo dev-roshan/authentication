@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -67,6 +68,12 @@ class AuthController extends Controller
         else{
             return response(['message' => 'Invalid Credentials', 'status' => false], 422);
         }
+    }
+
+    public function logout(Request $request){
+        $user = Auth::user()->token();
+        $user->revoke();
+        return response(['message' => 'Logged out successfully!', 'status' => true]);
     }
      
 }

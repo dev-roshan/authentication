@@ -26,6 +26,10 @@ $router->get('/email/resend', ['uses' => 'Auth\VerificationController@resend', '
 $router->post('/register','AuthController@register');
 $router->post('/login','AuthController@login');
 
+$router->group(['middleware' => 'auth:api'], function () use ($router) {
+    $router->post('/logout','AuthController@logout');
+});
+
 $router->get('/key', function() {
     return \Illuminate\Support\Str::random(32);
 });
